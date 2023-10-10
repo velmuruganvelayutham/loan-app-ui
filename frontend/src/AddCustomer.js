@@ -103,20 +103,20 @@ function AddCustomer(){
           <Row >
           <Col xs={12} md={4} className="rounded bg-white">
             <Form.Group className="mb-3" name="customername" border="primary" >
-              <Form.Label>Customer Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Customer Name" required value={input} onChange={(e)=>setInput(e.target.value)} />
+              <Form.Label>பெயர்</Form.Label>
+              <Form.Control type="text" placeholder="பெயர்" required value={input} onChange={(e)=>setInput(e.target.value)} />
             </Form.Group>
           </Col>
           <Col xs={12} md={4} className="rounded bg-white">
             <Form.Group className="mb-3" name="mobilenumber" border="primary" >
-              <Form.Label>Mobile No</Form.Label>
-              <Form.Control type="number" placeholder="Enter Mobile No" required value={inputmobileno} 
+              <Form.Label>போன்</Form.Label>
+              <Form.Control type="number" placeholder="போன்" required value={inputmobileno} 
               onChange={(e)=>setInputMobileno(e.target.value)} />
             </Form.Group>
           </Col>
           <Col xs={12} md={4} className="rounded bg-white">
             <Form.Group className="mb-3" name="cityname" border="primary" >
-            <Form.Label>City Name</Form.Label>
+            <Form.Label>ஊர்</Form.Label>
             <Form.Control as="select"   value={city} onChange={(e)=>setCity(e.target.value)} >
               <option  key={city}  >Open this select menu</option>
 
@@ -149,30 +149,30 @@ function AddCustomer(){
                     </ToggleButton>
                   ))}
                 </ButtonGroup>
-                <Form.Control type="text" placeholder="Enter Father Name"  ref={fathernameref} />
+                <Form.Control type="text" placeholder="தகப்பனார் பெயர்"  ref={fathernameref} />
                 
               </Form.Group>
           </Col>
           <Col xs={12} md={4} className="rounded bg-white">
               <Form.Group className="mb-3" name="address1" border="primary" >
-                <Form.Label>Address</Form.Label>
-                <Form.Control type="text" placeholder="Enter Address" ref={addressRef}  />
+                <Form.Label>முகவரி</Form.Label>
+                <Form.Control type="text" placeholder="முகவரி" ref={addressRef}  />
               </Form.Group>
             </Col>
             <Col xs={12} md={4} className="rounded bg-white">
               <Form.Group className="mb-3" name="work" border="primary" >
-                <Form.Label>Work</Form.Label>
-                <Form.Control type="text" placeholder="Enter Work" ref={workRef}  />
+                <Form.Label>வேலை</Form.Label>
+                <Form.Control type="text" placeholder="வேலை" ref={workRef}  />
               </Form.Group>
             </Col>
           </Row>
           <Row className="rounded bg-white text-center">
               <div className="col-md-12 mb-4 " >
                 <Button variant="primary" size="lg" type="submit" className="text-center" onClick={updateId ? updateCustomer : addCustomer}>
-                Submit
+                சேமி
                 </Button>{' '}
                 <Button variant="primary" size="lg" type="button" className="text-center" onClick={clearFields}>
-                  New
+                  புதிய
                 </Button>
               </div>
               
