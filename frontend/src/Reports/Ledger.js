@@ -1,9 +1,14 @@
-import React,{useState,Fragment, useRef} from 'react'
+import React,{useState,Fragment, useRef,useEffect} from 'react'
 import { Container,Row,Col,Form, FormGroup, FormControl ,Button, Alert,Table} from 'react-bootstrap'
 import axios from "axios";
 import {baseURL} from '../utils/constant';
 import ReactToPrint from 'react-to-print';
 function Ledger() {
+    useEffect(()=>{
+        axios.get(`${baseURL}/ledger/get`).then((res)=>{
+            console.log(res.data)
+        })
+    },[])
     const componentRef=useRef()
     const handlePrint=()=>{
         window.print()
@@ -41,7 +46,7 @@ function Ledger() {
                 <Row>
                     <Col  md={3} style={{outline:'1px solid orange',borderRadius:' 30px 30px 30px 30px'}}>
                     <Form.Group   border="primary" >
-                            <Form.Label>Customer&nbsp;:</Form.Label>
+                            <Form.Label>பெயர்&nbsp;:</Form.Label>
                             <Form.Label>&nbsp;Murugeswari</Form.Label>
                         </Form.Group>
                         <Form.Group   border="primary" >
