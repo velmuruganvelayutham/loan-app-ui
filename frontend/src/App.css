@@ -2,7 +2,10 @@
   width:100%;
   height:100%;
   background-color: #54B4D3;
+  font-size:14px;
 }
 .icons{
   cursor: pointer;
 }
+
+* {font-size: 14px;}

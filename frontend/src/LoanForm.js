@@ -130,15 +130,16 @@ function calculateTotalAmt(){
 const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     }
 
     setValidated(true);
-    if(form.checkValidity() ==true)
+    if(customeroptionRef.current.value!==""&&linemanoptionRef.current.value!=="" &&weekRef.current.value!=="" && bookRef.current.value,lineRef.current.value!==""
+    && lineRef.current.value!=="" & weekscount!=="" && givenAmt!=="" && givenAmt!==0 )
     {
         saveLoanDetails();
     }
+    
     
   };
 const saveLoanDetails =  () => {
@@ -147,7 +148,11 @@ const saveLoanDetails =  () => {
         weekno:weekRef.current.value,bookno:bookRef.current.value,lineno:lineRef.current.value,document:documentRef.current.value,cheque:chequeRef.current.value,
         weekcount:weekscount,startdate:new Date(startDate),givendate:new Date(givenDate.current.value),duedate:new Date(dueDate.current.value),finisheddate:new Date(endDateRef.current.value),
         givenamount:Number(givenAmt),documentamount:Number(documentAmt.current.value),interestamount:Number(interestAmt.current.value),
-        totalamount:Number(totalAmt.current.value),dueamount:Number(dueAmt.current.value),paidamount:Number(paidAmt.current.value)});
+        totalamount:Number(totalAmt.current.value),dueamount:Number(dueAmt.current.value),paidamount:Number(paidAmt.current.value)})
+        .then((res)=>{
+            clearFields();
+        });
+        alert("வெற்றிகரமாக சேமிக்கப்பட்டது");
   }
 
   const loadOldLoanRef=()=>{
@@ -191,6 +196,8 @@ function clearFields(){
             documentRef.current.value="";
             chequeRef.current.value="";
             setStartDate(startOfWeek());
+            givenDate.current.value=startOfWeek();
+
             setGivenAmt("");
             documentAmt.current.value="";
             interestAmt.current.value="";
@@ -202,28 +209,28 @@ function clearFields(){
 }   
 
   return (
-    
     <Container className="rounded bg-white mt-5">
         <Row className="justify-content-md-center mt-5 ">
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            
             <Row >
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3"  border="primary" >
-                        <Form.Label>Loan No</Form.Label>
-                        <Form.Control ref={loannoRef} type="number" placeholder="Loan No" required  />
+                        <Form.Label>சீட்டு எண்</Form.Label> {/*loan no*/}
+                        <Form.Control ref={loannoRef} type="number"  required  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3"  border="primary" >
-                        <Form.Label>Old No</Form.Label>
-                        <Form.Control ref={oldLoanRef} type="number" placeholder="Loan No" onBlur={loadOldLoanRef}  />
+                        <Form.Label>பழைய எண்</Form.Label>{/*old no*/}
+                        <Form.Control ref={oldLoanRef} type="number" placeholder="பழைய எண்" onBlur={loadOldLoanRef}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="customername" border="primary" >
-                    <Form.Label>Customer Name</Form.Label>
+                    <Form.Label>பெயர்</Form.Label>{/*customer*/}
                         <Form.Select aria-label="Default select example" ref={customeroptionRef} onChange={(e)=>customerSelect(e)} required>
-                        <option value="">select Customer</option>
+                        <option value="">பெயரை தேர்ந்தெடுக்கவும்</option>
                         {
                         customers.map((customer,i) => (
                         <option value={customer._id}>{customer.customer}</option>
@@ -233,9 +240,9 @@ function clearFields(){
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="linemanname" border="primary" >
-                    <Form.Label>LineMan Name</Form.Label>
+                    <Form.Label>கொடுப்பவர்</Form.Label>{/*lineman name*/}
                         <Form.Select aria-label="Default select example" ref={linemanoptionRef} required>
-                        <option value="">select LineMan</option>
+                        <option value="">கொடுப்பவர்</option>
                         {
                         linemannames.map((linemanname) => (
                         <option value={linemanname._id}>{linemanname.linemanname}</option>
@@ -248,21 +255,21 @@ function clearFields(){
                 
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="mobilenumber" border="primary" >
-                    <Form.Label>Mobile No</Form.Label>
-                    <Form.Control type="number" placeholder="Enter Mobile No"  
+                    <Form.Label>போன்</Form.Label> {/*mobile no*/}
+                    <Form.Control type="number" disabled  
                     value={inputmobileno} onChange={(e)=>setInputMobileno(e.target.value)} />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="fathername" border="primary" >
-                    <Form.Label>Father Name</Form.Label>
-                    <Form.Control ref={fathernameRef} type="text" placeholder="Father Name"   />
+                    <Form.Label>தகப்பனார்</Form.Label>{/*father name*/}
+                    <Form.Control ref={fathernameRef} type="text"  disabled   />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="cityname" border="primary" >
-                    <Form.Label>City Name</Form.Label>
-                    <Form.Control ref={citynameRef} type="text" placeholder="City Name" required  />
+                    <Form.Label>ஊர்</Form.Label> {/*city name*/}
+                    <Form.Control ref={citynameRef} type="text"  required disabled />
                     </Form.Group>
                 </Col>
                 
@@ -270,21 +277,21 @@ function clearFields(){
             <Row>
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="address1" border="primary" >
-                    <Form.Label>Address </Form.Label>
-                    <Form.Control ref={addressRef} type="text" placeholder="Address" required  />
+                    <Form.Label>முகவரி </Form.Label>{/*address*/}
+                    <Form.Control ref={addressRef} type="text"  required disabled />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="work" border="primary" >
-                    <Form.Label>Work</Form.Label>
-                    <Form.Control ref={workRef} type="text" placeholder="Work" required  />
+                    <Form.Label>தொழில்</Form.Label>{/*work*/}
+                    <Form.Control ref={workRef} type="text"  required disabled />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={4} className="rounded bg-white">
                     <Form.Group className="mb-3" name="lineno" border="primary" >
-                        <Form.Label>Line No</Form.Label>
+                        <Form.Label>லைன்</Form.Label>{/*line no*/}
                         <Form.Select aria-label="Default select example" ref={lineRef} required>
-                        <option value=""> select Line</option>
+                        <option value="">லைனை தேர்ந்தெடுக்கவும்</option>
                         {
                         linenames.map((linename) => (
                         <option value={linename.lineno}>{linename.linename}</option>
@@ -293,60 +300,63 @@ function clearFields(){
                     </Form.Group>
                 </Col>
             </Row>
+            
+            
             <Row>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="weekno" border="primary" >
-                        <Form.Label>Week No</Form.Label>
-                        <Form.Control type="number" placeholder="Enter Week No" required ref={weekRef}  />
+                        <Form.Label>வார எண்</Form.Label>{/*week No*/}
+                        <Form.Control type="number" placeholder="வார எண் இடவும்" required ref={weekRef}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="bookno" border="primary" >
-                        <Form.Label>Book No</Form.Label>
-                        <Form.Control type="number" placeholder="Enter Book No" required ref={bookRef} />
+                        <Form.Label>புக் எண்</Form.Label>{/*book no*/}
+                        <Form.Control type="number" placeholder="புக் எண் இடவும்" required ref={bookRef} />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="doument" border="primary" >
-                        <Form.Label>Document</Form.Label>
-                        <Form.Control type="text" placeholder="Enter document details"  ref={documentRef} />
+                        <Form.Label>டாகுமெண்ட்</Form.Label>{/*document*/}
+                        <Form.Control type="text" placeholder="டாகுமெண்ட்"  ref={documentRef} />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="cheque" border="primary" >
-                        <Form.Label>cheque</Form.Label>
-                        <Form.Control type="number" placeholder="Enter cheque details" ref={chequeRef}   />
+                        <Form.Label>செக்</Form.Label>{/*cheque*/}
+                        <Form.Control type="number" placeholder="செக்" ref={chequeRef}   />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="bookno" border="primary" >
-                        <Form.Label>week</Form.Label>
+                        <Form.Label>வாரம்</Form.Label>{/*week*/}
                         <Form.Control className='bg-info text-center' size="lg" type="number" placeholder="How Many Weeks" required value={weekscount} onChange={(e)=>setWeeksCount(e.target.value)}/>
                     </Form.Group>
                 </Col>
             </Row>
+            
             <Row>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="startdate" border="primary" >
-                        <Form.Label>Start Date</Form.Label>
+                        <Form.Label>ஆரம்ப தேதி</Form.Label>{/*start Date*/}
                         <Form.Control type="date"  placeholder="loan start date" required  value={startDate} onChange={(e)=>setStartDate(e.target.value)}  onBlur={endingDate}/>
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="givendate" border="primary" >
-                        <Form.Label>Given Date</Form.Label>
+                        <Form.Label>கொடுத்த தேதி</Form.Label>{/*given Date*/}
                         <Form.Control type="date" ref={givenDate} placeholder="loan given date" required  defaultValue={startOfWeek()}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3" name="givendate" border="primary" >
-                        <Form.Label>Due Date</Form.Label>
+                        <Form.Label>செலுத்தும் தேதி</Form.Label>{/*paid date*/}
                         <Form.Control type="date" ref={dueDate} placeholder="loan paid date" required  defaultValue={startOfWeek()}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="rounded bg-white">
                     <Form.Group className="mb-3"  border="primary" >
-                        <Form.Label>Finished Date</Form.Label>
+                        <Form.Label>முடிவு தேதி</Form.Label>{/*finished Date*/}
                         <Form.Control type="date" ref={endDateRef} placeholder="loan finished" required value={endingDate()}   />
                     </Form.Group>
                 </Col>
@@ -354,51 +364,52 @@ function clearFields(){
             <Row>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="givenmoney" border="primary" >
-                        <Form.Label>Given Money</Form.Label>
+                        <Form.Label>கொடுத்த பணம்</Form.Label>{/*given Money*/}
                         <Form.Control className='text-end' type="number"
-                        placeholder="Money given to borrower" value={givenAmt} required  
+                         value={givenAmt} required  
                         onChange={(e)=>setGivenAmt(Number(e.target.value))} 
                         onBlur={calculateTotalAmt} />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="documentcharge" border="primary" >
-                        <Form.Label>Document Charge</Form.Label>
-                        <Form.Control ref={documentAmt} className='text-end' type="text"  placeholder="document charge" required  />
+                        <Form.Label>டாகுமெண்ட் சார்ச்</Form.Label>{/*document Charge*/}
+                        <Form.Control ref={documentAmt} className='text-end' type="text"   required  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="interest" border="primary" >
-                        <Form.Label>Interest Amount</Form.Label>
-                        <Form.Control className='text-end' type="text" placeholder="Interest Amount" required ref={interestAmt}  />
+                        <Form.Label>வட்டி</Form.Label>{/*interest*/}
+                        <Form.Control className='text-end' type="text"  required ref={interestAmt}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="totalamount" border="primary" >
-                        <Form.Label>Total Amount</Form.Label>
-                        <Form.Control  className='text-end' type="text" placeholder="total amount" required  ref={totalAmt}  />
+                        <Form.Label>மொத்தம்</Form.Label>{/*total*/}
+                        <Form.Control  className='text-end' type="text"  required  ref={totalAmt}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="dueamount" border="primary" >
-                        <Form.Label>Due Amount</Form.Label>
-                        <Form.Control className='text-end' type="text" placeholder="Due amount" required  ref={dueAmt}  />
+                        <Form.Label>தவணை</Form.Label>{/*Due Amount*/}
+                        <Form.Control className='text-end' type="text"  required  ref={dueAmt}  />
                     </Form.Group>
                 </Col>
                 <Col xs={12} md={2} className="rounded bg-white">
                     <Form.Group className="mb-3" name="paidamount" border="primary" >
-                        <Form.Label>Paid Amount</Form.Label>
-                        <Form.Control className='text-end' type="text" placeholder="Paid amount" required  ref={paidAmt}   />
+                        <Form.Label>கட்டிய பணம்</Form.Label>{/*paid Amount*/}
+                        <Form.Control className='text-end' type="text"  required  ref={paidAmt}   />
                     </Form.Group>
                 </Col>
             </Row>
+            
             <Row>
                 <div className="col-md-12 text-center mb-2 " >
-                    <Button variant="primary" size="lg" type="submit" className="text-center" >
-                    Save
+                    <Button variant="primary" size="lg" type="button" className="text-center" onClick={handleSubmit} >
+                    சேமி
                     </Button>{' '}
                     <Button variant="primary" size="lg" type="button" className="text-center" onClick={clearFields}>
-                    New
+                    புதிய
                     </Button>
                 </div>
             </Row>

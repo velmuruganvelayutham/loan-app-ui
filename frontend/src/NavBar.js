@@ -23,7 +23,7 @@ function NavBar(){
                     <NavDropdown.Item href="/receipt">Receipt</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Report" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/ledger">Ledger</NavDropdown.Item>
+                    <NavDropdown.Item href="/ledgercreate">Ledger</NavDropdown.Item>
                 </NavDropdown>  
                 </Nav>
                 </Navbar.Collapse>

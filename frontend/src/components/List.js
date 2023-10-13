@@ -53,28 +53,28 @@ serialno=(currentPage-1) * recordsPerPage;
           <thead>
             <tr>
               <th>
-                No
+                எண்
               </th>
               <th>
-                Name
+                பெயர்
               </th>
               <th>
-                Mobile No
+                போன்
               </th>
               <th>
-                City
+                ஊர்
               </th>
               <th colSpan={2}>
-                Father Name
+                தகப்பனார்
               </th>
               <th>
-                Address
+                முகவரி
               </th>
               <th>
-                Work
+                வேலை
               </th>
               <th>
-                Action
+                செயல்
               </th>
             </tr>
           </thead>
@@ -104,7 +104,7 @@ serialno=(currentPage-1) * recordsPerPage;
               })
               )
               :
-              "No Data Available"
+              "தரவு இல்லை"
             }
           </tbody>
         </Table>
@@ -112,7 +112,7 @@ serialno=(currentPage-1) * recordsPerPage;
         
           <Pagination>
             <Pagination.Prev >
-            <a href="#" className='page-link' onClick={prevPage}>Prev</a>
+            <a href="#" className='page-link' onClick={prevPage}>முன்</a>
             </Pagination.Prev>
             {
             numbers.map((n,i)=>(
@@ -123,7 +123,7 @@ serialno=(currentPage-1) * recordsPerPage;
             ))
           }
             <Pagination.Next>
-            <a href="#" className='page-link' onClick={nextPage}>Next</a>
+            <a href="#" className='page-link' onClick={nextPage}>பின்</a>
             </Pagination.Next>
           </Pagination>
         </nav>
