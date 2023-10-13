@@ -33,6 +33,7 @@ function AddLineMan(){
 
   const addLineMan=() =>{
     axios.post(`${baseURL}/linemancreate/save`,{linemancode:maxCitycode,linemanname:input,mobileno:inputmobileno}).then((res)=>{
+      //console.log(res.data)
       setInput("")
       setInputMobileno("");
       setUpdateUI((prevState)=>!prevState)

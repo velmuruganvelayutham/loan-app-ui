@@ -25,3 +25,12 @@ export function dateFormat(datevalue)
     }).split("/").reverse().join("-");
     return datesformat;
 }
+export function dateFormatdd(datevalue)
+{
+    const datesformat=new Date(datevalue).toLocaleDateString('en-GB',{
+        year:'numeric',
+        month:'2-digit',
+        day:'2-digit',
+    }).split("/").join("-");
+    return datesformat;
+}

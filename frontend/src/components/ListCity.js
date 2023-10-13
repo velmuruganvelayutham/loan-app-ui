@@ -6,7 +6,7 @@ import {BsTrash} from "react-icons/bs"
 import axios from 'axios'
 import {baseURL} from "../utils/constant";
 
-const ListCity=({citynames,setUpdateUI})=>{
+const ListCity=({citynames,setUpdateUI,updateMode})=>{
 const[currentPage,setCurrentPage]=useState(1);
 const recordsPerPage=5;
 const lastIndex=currentPage*recordsPerPage;
@@ -46,16 +46,16 @@ function prevPage(){
           <thead>
             <tr>
               <th>
-                No
+              எண்
               </th>
               <th>
-                Name
+              பெயர்
               </th>
               <th>
-                Line No
+                லைன்
               </th>
               <th>
-                Action
+                செயல்
               </th>
             </tr>
           </thead>
@@ -71,7 +71,7 @@ function prevPage(){
                     <td>{cityname.cityname}</td>
                     <td>Line{cityname.citylineno}</td>
                     <td>
-                    {/*<BiEditAlt  className='icons' onClick={()=>updateMode(cityname._id,cityname.cityname,cityname.citylineno)} />*/}
+                    <BiEditAlt  className='icons' onClick={()=>updateMode(cityname._id,cityname.cityname,cityname.citylineno)} />
                     <BsTrash className='icons' onClick={()=>removeCity(cityname._id)} />
                     </td>
                   </tr>
@@ -80,7 +80,7 @@ function prevPage(){
               })
               )
               :
-              "No Data Available"
+              "தரவு இல்லை"
             }
           </tbody>
         </Table>
@@ -88,7 +88,7 @@ function prevPage(){
         
           <Pagination>
             <Pagination.Prev >
-            <a href="#" className='page-link' onClick={prevPage}>Prev</a>
+            <a href="#" className='page-link' onClick={prevPage}>முன்</a>
             </Pagination.Prev>
             {
             numbers.map((n,i)=>(
@@ -99,7 +99,7 @@ function prevPage(){
             ))
           }
             <Pagination.Next>
-            <a href="#" className='page-link' onClick={nextPage}>Next</a>
+            <a href="#" className='page-link' onClick={nextPage}>பின்</a>
             </Pagination.Next>
           </Pagination>
         </nav>

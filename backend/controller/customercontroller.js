@@ -79,6 +79,7 @@ module.exports.updateCustomer=(req,res)=>{
 //Delete customer
 module.exports.deleteCustomer=(req,res)=>{
     const {id}=req.params
+  
     customerModel.findByIdAndDelete(id)
     .then(()=> res.send("Deleted Successfully"))
     .catch((err)=>{

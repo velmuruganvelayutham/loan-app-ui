@@ -14,7 +14,8 @@ function AddCustomer(){
   const[updateId,setUpdateId]=useState(null);
   const [radioValue, setRadioValue] = useState("0");
   const [citynames,setCitynames]=useState([]);
-  const [city,setCity]=useState(0);
+  const [validated, setValidated] = useState(false);
+  const [city,setCity]=useState("");
   const fathernameref=useRef(null);
   const addressRef=useRef(null);
   const workRef=useRef(null);
@@ -35,13 +36,31 @@ function AddCustomer(){
     })
   },[updateUI]);*/
 
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+    }
+    setValidated(true);
+
+    if(input !=="" && inputmobileno!="" && city!=="" && fathernameref.current.value!==""
+    && addressRef.current.value!=="" && workRef.current.value!=="")
+    {
+      addCustomer();
+    }
+    
+  };
+
+
   const addCustomer=() =>{
+
     axios.post(`${baseURL}/save`,{customer:input,mobileno:inputmobileno,cityid:city,fathername:fathernameref.current.value,
                   address:addressRef.current.value,work:workRef.current.value,relationtype:Number(radioValue)}).then((res)=>{
       //console.log(res.data)
       setInput("")
       setInputMobileno("");
-      setCity(0);
+      setCity("");
       setRadioValue("0")
       fathernameref.current.value="";
       addressRef.current.value="";
@@ -70,7 +89,7 @@ function AddCustomer(){
       setUpdateUI((prevState)=>!prevState)
       setInput("");
       setInputMobileno("");
-      setCity(0);
+      setCity("");
       setRadioValue("0")
       fathernameref.current.value="";
       addressRef.current.value="";
@@ -82,7 +101,7 @@ function AddCustomer(){
   const clearFields=()=>{
       setInput("");
       setInputMobileno("");
-      setCity(0);
+      setCity("");
       setRadioValue("0")
       fathernameref.current.value="";
       addressRef.current.value="";
@@ -97,14 +116,14 @@ function AddCustomer(){
     return(
       
       <Container >
-        <h2 className="text-center">CUSTOMER MASTER</h2>
+        <h2 className="text-center">வாடிக்கையாளர் விபரம்</h2>
         <Row className="justify-content-md-center mt-5 ">
-        <Form >
+        <Form validated={validated}>
           <Row >
           <Col xs={12} md={4} className="rounded bg-white">
             <Form.Group className="mb-3" name="customername" border="primary" >
               <Form.Label>பெயர்</Form.Label>
-              <Form.Control type="text" placeholder="பெயர்" required value={input} onChange={(e)=>setInput(e.target.value)} />
+              <Form.Control  type="text" placeholder="பெயர்" required value={input} onChange={(e)=>setInput(e.target.value)} />
             </Form.Group>
           </Col>
           <Col xs={12} md={4} className="rounded bg-white">
@@ -117,8 +136,8 @@ function AddCustomer(){
           <Col xs={12} md={4} className="rounded bg-white">
             <Form.Group className="mb-3" name="cityname" border="primary" >
             <Form.Label>ஊர்</Form.Label>
-            <Form.Control as="select"   value={city} onChange={(e)=>setCity(e.target.value)} >
-              <option  key={city}  >Open this select menu</option>
+            <Form.Select aria-label="Default select example"   value={city} onChange={(e)=>setCity(e.target.value)} required>
+              <option  key={city} value={""} >மெனுவை தேர்ந்தெடுக்கவும்</option>
 
               {
               citynames.map((cityname) => (
@@ -126,7 +145,7 @@ function AddCustomer(){
               selected={city===cityname._id} >{cityname.cityname}</option>
             ))}
               
-              </Form.Control>
+              </Form.Select>
             </Form.Group>
           </Col>
           </Row>
@@ -149,26 +168,26 @@ function AddCustomer(){
                     </ToggleButton>
                   ))}
                 </ButtonGroup>
-                <Form.Control type="text" placeholder="தகப்பனார் பெயர்"  ref={fathernameref} />
+                <Form.Control type="text" placeholder="தகப்பனார் பெயர்"  ref={fathernameref} required/>
                 
               </Form.Group>
           </Col>
           <Col xs={12} md={4} className="rounded bg-white">
               <Form.Group className="mb-3" name="address1" border="primary" >
                 <Form.Label>முகவரி</Form.Label>
-                <Form.Control type="text" placeholder="முகவரி" ref={addressRef}  />
+                <Form.Control type="text" placeholder="முகவரி" ref={addressRef}  required/>
               </Form.Group>
             </Col>
             <Col xs={12} md={4} className="rounded bg-white">
               <Form.Group className="mb-3" name="work" border="primary" >
                 <Form.Label>வேலை</Form.Label>
-                <Form.Control type="text" placeholder="வேலை" ref={workRef}  />
+                <Form.Control type="text" placeholder="வேலை" ref={workRef}  required/>
               </Form.Group>
             </Col>
           </Row>
           <Row className="rounded bg-white text-center">
               <div className="col-md-12 mb-4 " >
-                <Button variant="primary" size="lg" type="submit" className="text-center" onClick={updateId ? updateCustomer : addCustomer}>
+                <Button variant="primary" size="lg" type="button" className="text-center" onClick={updateId ? updateCustomer : handleSubmit}>
                 சேமி
                 </Button>{' '}
                 <Button variant="primary" size="lg" type="button" className="text-center" onClick={clearFields}>

@@ -24,7 +24,7 @@ function App() {
                 <Route path='/linemancreate' element={<AddLineMan/>}/>
                 <Route path='/loan' element={<LoanForm />} />
                 <Route path='/receipt' element={< AddReceipt/>} />
-                <Route path='/ledger' element={< Ledger/>} />
+                <Route path='/ledgercreate' element={< Ledger/>} />
             </Routes>
         </Router>
         <Footer />
